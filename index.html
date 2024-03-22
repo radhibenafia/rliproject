@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decoder CAN</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <h2 style="text-align: center;">Decoder CAN</h2>
+        <textarea id="canFrame" placeholder="Entrez la trame CAN ici..."></textarea>
+        <button onclick="decodeFrame()">Décoder</button>
+        <div id="decodedResult"></div>
+        <p id="frameCount"></p>
+    </div>
+
+    <div id="bit-diagram">
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+
+        <div id="bits-container">
+            <!-- Les éléments pour afficher les bits seront ajoutés ici -->
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="script.js"></script>
+
+</body>
+
+</html>
