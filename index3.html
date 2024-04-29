@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binary Division</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('test3.jpg');
+            /* Chemin vers votre image de fond */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            /* Ajouter une opacité au fond */
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="text"] {
+            padding: 8px;
+            margin-bottom: 10px;
+            width: 100%;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #45a049;
+            /* Modifier la couleur du bouton */
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #3e874f;
+            /* Couleur au survol */
+        }
+
+        .output {
+            margin-top: 20px;
+            white-space: pre-line;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Binary Division</h2>
+        <label for="val1">Value 1:</label>
+        <input type="text" id="val1" placeholder="Enter binary value">
+
+        <label for="val2">Value 2:</label>
+        <input type="text" id="val2" placeholder="Enter binary value">
+
+        <button onclick="performDivision()">Perform Division</button>
+        <br>
+        <a href="index.html">Return</a>
+
+        <div class="output" id="output"></div>
+    </div>
+
+    <script>
+        function showpoly(a) {
+            let str1 = "";
+            let nobits = a.length;
+
+            for (let x = 0; x < nobits - 2; x++) {
+                if (a[x] === '1') {
+                    if (str1.length === 0) {
+                        str1 += "x**" + (nobits - x - 1);
+                    } else {
+                        str1 += "+x**" + (nobits - x - 1);
+                    }
+                }
+            }
+
+            if (a[nobits - 2] === '1') {
+                if (str1.length === 0) {
+                    str1 += "x";
+                } else {
+                    str1 += "+x";
+                }
+            }
+
+            if (a[nobits - 1] === '1') {
+                str1 += "+1";
+            }
+
+            return str1;
+        }
+
+        function toList(x) {
+            let l = [];
+            for (let i = 0; i < x.length; i++) {
+                l.push(parseInt(x[i]));
+            }
+            return l;
+        }
+
+        function toString(x) {
+            let str1 = "";
+            for (let i = 0; i < x.length; i++) {
+                str1 += x[i];
+            }
+            return str1;
+        }
+
+        function divide(val1, val2) {
+            let a = toList(val1);
+            let b = toList(val2);
+            let working = toString(val1) + "\n";
+
+            let res = "";
+            let addspace = "";
+
+            while (b.length <= a.length && a.length > 0) {
+                if (a[0] === 1) {
+                    a.shift();
+                    for (let j = 0; j < b.length - 1; j++) {
+                        a[j] ^= b[j + 1];
+                    }
+                    if (a.length > 0) {
+                        working += addspace + toString(b) + "\n";
+                        working += addspace + "-".repeat(b.length) + "\n";
+                        addspace += " ";
+                        working += addspace + toString(a) + "\n";
+                        res += "1";
+                    }
+                } else {
+                    a.shift();
+                    working += addspace + "0".repeat(b.length) + "\n";
+                    working += addspace + "-".repeat(b.length) + "\n";
+                    addspace += " ";
+                    working += addspace + toString(a) + "\n";
+
+                    res += "0";
+                }
+            }
+
+            const output = "Result is\t" + res + "\n" +
+                "Remainder is\t" + toString(a) + "\n\n" +
+                "Working is\t\n\n" + res.padStart(val1.length) + "\n" +
+                "-".repeat(val1.length) + "\n" +
+                working;
+
+            return output;
+        }
+
+        function performDivision() {
+            const val1 = document.getElementById("val1").value;
+            const val2 = document.getElementById("val2").value;
+
+            const output = divide(val1, val2);
+            document.getElementById("output").innerText = output;
+        }
+    </script>
+</body>
+
+</html>
